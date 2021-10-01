@@ -54,11 +54,22 @@ class ViewController: UIViewController {
                                  for: .touchUpInside)
     }
     
-    @objc
-    private func settingsButtonPressed(){
-        UIView.animate(withDuration: 0.1, animations: {
-            self.settingsView.alpha = 1 - self.settingsView.alpha
-        })
+    private var buttonCount = 0
+    @objc private func settingsButtonPressed(){
+        switch buttonCount {
+        case 0, 1:
+            UIView.animate(withDuration: 0.1, animations: {
+                self.settingsView.alpha = 1 - self.settingsView.alpha
+            })
+        case 2:
+            navigationController?.pushViewController(SettingsViewController(), animated: true)
+        case 3:
+            present(SettingsViewController(), animated: true, completion: nil)
+        default:
+            buttonCount = -1;
+        }
+        
+        buttonCount += 1
     }
     
     private func setupSettingsView(){
