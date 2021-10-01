@@ -19,6 +19,7 @@ class ViewController: UIViewController {
         setupSettingsView()
         setupSettingsButton()
         setupLocationTextView()
+        setupLocationToggle()
         setupLocationManager()
         locationManager.requestWhenInUseAuthorization()
     }
@@ -27,31 +28,16 @@ class ViewController: UIViewController {
         return .lightContent
     }
     
-    private func setupSettingsView(){
-        self.view.addSubview(settingsView)
-        settingsView.backgroundColor = .red
-        settingsView.translatesAutoresizingMaskIntoConstraints = false
-        settingsView.topAnchor.constraint(
-            equalTo: view.safeAreaLayoutGuide.topAnchor,
-            constant: 10
-        ).isActive = true
-        settingsView.trailingAnchor.constraint(
-            equalTo: view.safeAreaLayoutGuide.trailingAnchor,
-            constant: -10
-        ).isActive = true
-        settingsView.heightAnchor.constraint(equalToConstant: 300).isActive = true
-        settingsView.widthAnchor.constraint(equalToConstant: 200).isActive = true
-        settingsView.alpha = 0
-    }
-    
     private func setupSettingsButton(){
         let settingsButton = UIButton(type: .system)
-        settingsButton.setTitle("settings", for: .normal)
+        
+        settingsButton.setTitle("options", for: .normal)
         settingsButton.setImage(
             UIImage(named: "settings")?.withRenderingMode(.alwaysOriginal),
             for: .normal)
         
         self.view.addSubview(settingsButton)
+        
         settingsButton.translatesAutoresizingMaskIntoConstraints = false
         settingsButton.topAnchor.constraint(
             equalTo: view.safeAreaLayoutGuide.topAnchor,
@@ -75,6 +61,24 @@ class ViewController: UIViewController {
         })
     }
     
+    private func setupSettingsView(){
+        view.addSubview(settingsView)
+        
+        settingsView.backgroundColor = .red
+        settingsView.translatesAutoresizingMaskIntoConstraints = false
+        settingsView.topAnchor.constraint(
+            equalTo: view.safeAreaLayoutGuide.topAnchor,
+            constant: 10
+        ).isActive = true
+        settingsView.trailingAnchor.constraint(
+            equalTo: view.safeAreaLayoutGuide.trailingAnchor,
+            constant: -10
+        ).isActive = true
+        settingsView.heightAnchor.constraint(equalToConstant: 300).isActive = true
+        settingsView.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        settingsView.alpha = 0
+    }
+    
     private func setupLocationTextView(){
         view.addSubview(locationTextView)
         
@@ -83,7 +87,7 @@ class ViewController: UIViewController {
         locationTextView.translatesAutoresizingMaskIntoConstraints = false
         locationTextView.topAnchor.constraint(
             equalTo: view.safeAreaLayoutGuide.topAnchor,
-            constant: 150
+            constant: 60
         ).isActive = true
         locationTextView.centerXAnchor.constraint(
             equalTo: view.centerXAnchor
@@ -94,12 +98,14 @@ class ViewController: UIViewController {
             constant: 15
         ).isActive = true
         locationTextView.isUserInteractionEnabled = false
+        view.sendSubviewToBack(locationTextView)
     }
     
     private func setupLocationToggle(){
         let locationToggle = UISwitch()
         settingsView.addSubview(locationToggle)
         
+        locationToggle.backgroundColor = .green
         locationToggle.translatesAutoresizingMaskIntoConstraints = false
         locationToggle.topAnchor.constraint(
             equalTo: settingsView.topAnchor,
@@ -107,7 +113,7 @@ class ViewController: UIViewController {
         ).isActive = true
         locationToggle.trailingAnchor.constraint(
             equalTo: settingsView.trailingAnchor,
-            constant: 0
+            constant: -10
         ).isActive = true
         locationToggle.addTarget(
             self,
@@ -143,14 +149,13 @@ class ViewController: UIViewController {
         ).isActive = true
         locationLabel.leadingAnchor.constraint(
             equalTo: settingsView.leadingAnchor,
-            constant: -10
+            constant: 10
         ).isActive = true
         locationLabel.trailingAnchor.constraint(
             equalTo: locationLabel.trailingAnchor,
             constant: -10
         ).isActive = true
     }
-    
 }
 extension ViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager,
