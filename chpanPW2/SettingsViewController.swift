@@ -30,7 +30,6 @@ final class SettingsViewController: UIViewController {
             equalTo: view.trailingAnchor,
             constant: -10
         ).isActive = true
-
         button.topAnchor.constraint(
             equalTo: view.safeAreaLayoutGuide.topAnchor,
             constant: 200
@@ -43,7 +42,6 @@ final class SettingsViewController: UIViewController {
     @objc
     private func closeScreen() {
         navigationController?.popViewController(animated: true)
-
         dismiss(animated: true, completion: nil)
     }
 
@@ -103,6 +101,7 @@ final class SettingsViewController: UIViewController {
             locationManager.stopUpdatingLocation()
         }
     }
+    
 }
 
 extension SettingsViewController: CLLocationManagerDelegate {
